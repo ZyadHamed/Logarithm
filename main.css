@@ -12,7 +12,11 @@
     height: 100%;
 }
 
-
+.inset-container{
+    position: relative;
+    left: 25%;
+    padding: 5%;
+}
 
 .introtext {
     position: relative;
