@@ -11,7 +11,7 @@
   "name": "logarithim",
   "version": "1.0.0",
   "description": "A project to elevate mathematics in Egypt",
-  "main": "signup.html",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZyadHamed/Logarithm.git"
