@@ -5,25 +5,31 @@ var con = mysql.createConnection({
     password: "7px1uTtSoJlfYzTUj3Ch",
     database: "bb6ru2jjxfdxalpbj1rn"
   });
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 const PORT = process.env.PORT | 5000;
-app.get("/PostData", (req, res)=>{
-
-})
+const cors = require("cors");
+app.use(cors());
+app.use(express.json())
+app.post("/SignUp", (req, res)=>{
+  teamname = req.body["teamname"];
+  email = req.body["email"];
+  password = req.body["password"];
+  leaderfirstname = req.body["leaderfirstname"];
+  leaderlastname = req.body["leaderlastname"];
+  membertwofirstname = req.body["membertwofirstname"];
+  membertwolastname = req.body["membertwolastname"];
+  var sql = "INSERT INTO Participants (teamname, email, password, leaderfirstname, leaderlastname, memberfirstname, memberlastname) VALUES ('" + teamname + "', '" + email + "', '" + password + "', '" + leaderfirstname + "', '" + leaderlastname + "', '" + membertwofirstname + "', '" + membertwolastname + "');";
+  console.log(sql)
+});
 
 app.get("/", (req, res)=>{
     con.connect(function(err) {
         if (err) throw err;
         console.log("Connected!");
       });
-      var sql = "DROP TABLE Participants;"
-      //var sql = "CREATE TABLE Participants (email VARCHAR(255), password VARCHAR(50), leaderfirstname VARCHAR(50), leaderlastname VARCHAR(50), memberfirstname VARCHAR(50), memberlastname VARCHAR(50))";
-      con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("Table created");
-      });
-})
+      res.send({msg:"It's working charms!!!"});
+});
 app.listen(PORT, ()=>{
-    console.log("Server is listening....")
-})
+    console.log("Server is listening on port " + PORT);
+});

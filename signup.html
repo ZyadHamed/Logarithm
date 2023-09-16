@@ -19,8 +19,12 @@
       </head>
     <body>
         
-        <form class="w-50 inset-container">
-            <h4>Leader information</h4>
+        <form class="w-50 inset-container" id="signupform">
+            <h4>Team Information</h4>
+            <div class="mb-3">
+                <label for="teamname" class="form-label">Team Name</label>
+                <input type="text" class="form-control" id="teamname" required>
+            </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
@@ -30,27 +34,28 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" required>
             </div>
+            <h4>Members information</h4>
             <div class="row mb-3">
                 <div class="col-lg-6 col-xs-12">
-                    <label for="leaderfirstname" class="form-label">First Name</label>
+                    <label for="leaderfirstname" class="form-label">Leader First Name</label>
                     <input type="text" class="form-control" id="leaderfirstname" required>
                 </div>
                 <div class="col-lg-6 col-xs-12">
-                    <label for="leaderlastname" class="form-label">Last Name</label>
+                    <label for="leaderlastname" class="form-label">Leader Last Name</label>
                     <input type="text" class="form-control" id="leaderlastname" required>
                 </div>
             </div>
-            <h4>Second member information</h4>
             <div class="row mb-3">
                 <div class="col-lg-6 col-xs-12">
-                    <label for="membertwofirstname" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="membertwofirstname" required>
+                    <label for="membertwofirstname" class="form-label">Member 2 First Name</label>
+                    <input type="text" class="form-control" id="membertwofirstname">
                 </div>
                 <div class="col-lg-6 col-xs-12">
-                    <label for="membertwolastname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="membertwolastname" required>
+                    <label for="membertwolastname" class="form-label">Member 2 Last Name</label>
+                    <input type="text" class="form-control" id="membertwolastname">
                 </div>
             </div>
+            <p id="conts"></p>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     <div class="text-center p-4 justify-content-between" style="background-color: rgba(0, 0, 0, 0.05);">
@@ -59,5 +64,39 @@
       </div>  
   </div>
         <script src="js/bootstrap.min.js"></script>
+        <script>
+            var form = document.getElementById("signupform");
+            form.addEventListener('submit', SendData)
+            function SendData(event){
+                event.preventDefault();
+                var data = { teamname: document.getElementById("teamname").value, email: document.getElementById("email").value, 
+                password: document.getElementById("password").value, 
+                leaderfirstname: document.getElementById("leaderfirstname").value,
+            leaderlastname: document.getElementById("leaderlastname").value, 
+            membertwofirstname: document.getElementById("membertwofirstname").value,
+        membertwolastname: document.getElementById("membertwolastname").value};
+        console.log(data)
+                fetch("http://localhost:5000/SignUp", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+            }
+        </script>
     </body>
 </html>
