@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 const path = require("path");
+const util = require("util")
 var con = mysql.createConnection({
     host: "bb6ru2jjxfdxalpbj1rn-mysql.services.clever-cloud.com",
     user: "uta3yf4ke2zozg4a",
@@ -13,7 +14,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 app.use('/', express.static(path.join(__dirname + '/')));
-app.post("/SignUp", (req, res)=>{
+const queryAsync = util.promisify(con.query).bind(con);
+app.post("/SignUp", async (req, res)=>{
   teamname = req.body["teamname"];
   email = req.body["email"];
   password = req.body["password"];
@@ -21,15 +23,19 @@ app.post("/SignUp", (req, res)=>{
   leaderlastname = req.body["leaderlastname"];
   membertwofirstname = req.body["membertwofirstname"];
   membertwolastname = req.body["membertwolastname"];
+  var checkQuery1 = "SELECT * from Participants WHERE teamname='" + teamname + "';";;
+  var checkQuery2 = "SELECT * from Participants WHERE email='" + email + "';";
   var sql = "INSERT INTO Participants (teamname, email, password, leaderfirstname, leaderlastname, memberfirstname, memberlastname) VALUES ('" + teamname + "', '" + email + "', '" + password + "', '" + leaderfirstname + "', '" + leaderlastname + "', '" + membertwofirstname + "', '" + membertwolastname + "');";
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });
-  });
+  const result1 = await queryAsync(checkQuery1);
+  if(result1.length > 0){
+    return res.send({err: "This Team Name Already Exists"});
+  }
+  const result2 = await queryAsync(checkQuery2);
+  if(result2.length > 0){
+    return res.send({err: "This Email Already Exists"});
+  }
+  await queryAsync(sql);
+  res.send({success:"Account Created Successfully!"});
 });
 
 app.get("/", (req, res)=>{

@@ -65,10 +65,24 @@
   </div>
         <script src="js/bootstrap.min.js"></script>
         <script>
+            function containsSpecialCharacters(input) {
+            const specialCharacters = /[!&*()_+{}\[\]:;<>,'".?~\\/-]/;
+            return specialCharacters.test(input);
+            }
             var form = document.getElementById("signupform");
             form.addEventListener('submit', SendData)
             function SendData(event){
                 event.preventDefault();
+                if(containsSpecialCharacters(document.getElementById("teamname").value) || 
+                containsSpecialCharacters(document.getElementById("leaderfirstname").value) || 
+                containsSpecialCharacters(document.getElementById("leaderlastname").value) ||
+                containsSpecialCharacters(document.getElementById("membertwofirstname").value) || 
+                containsSpecialCharacters(document.getElementById("membertwolastname").value) || 
+                containsSpecialCharacters(document.getElementById("password").value))
+                {
+                    alert("The only special characters than can be used are $, %, #, and @. Please remove any other characters and try again!")
+                    return;
+                }
                 var data = { teamname: document.getElementById("teamname").value, email: document.getElementById("email").value, 
                 password: document.getElementById("password").value, 
                 leaderfirstname: document.getElementById("leaderfirstname").value,
@@ -76,7 +90,7 @@
             membertwofirstname: document.getElementById("membertwofirstname").value,
         membertwolastname: document.getElementById("membertwolastname").value};
         console.log(data)
-                fetch("https://busy-teal-toad-boot.cyclic.app/SignUp", {
+                fetch("http://localhost:5000/SignUp", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -91,7 +105,13 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data);
+                    if(data["err"] != undefined){
+                        alert(data["err"]);
+                    }
+                    else{
+                        alert(data["success"]);
+                        window.open("index.html", "_self");
+                    }
                 })
                 .catch(error => {
                     console.error("There was a problem with the fetch operation:", error);
