@@ -20,7 +20,14 @@ app.post("/SignUp", (req, res)=>{
   membertwofirstname = req.body["membertwofirstname"];
   membertwolastname = req.body["membertwolastname"];
   var sql = "INSERT INTO Participants (teamname, email, password, leaderfirstname, leaderlastname, memberfirstname, memberlastname) VALUES ('" + teamname + "', '" + email + "', '" + password + "', '" + leaderfirstname + "', '" + leaderlastname + "', '" + membertwofirstname + "', '" + membertwolastname + "');";
-  console.log(sql)
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+    });
+  });
 });
 
 app.get("/", (req, res)=>{
