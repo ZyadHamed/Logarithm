@@ -181,8 +181,8 @@ app.post("/SubmitAnswers", async (req, res)=>{
   {
     totalScore += 15;
   }
-  var query = "UPDATE Grades SET 'q1'='" + q1ans == 0 + "', 'q2'='" + q2ans == 503 + "','q3'='" + q3ans == 511 + "','q4'='" + q4ans == 210 + "','q5'='" + q5ans == 944 + "','q6'='" + q6ans == 9 + "','q7'='" + q7ans == 99 + "','q8'='" + q8ans == 2023 + "','q9'='" + q9ans == 1999 + "','q10'='" + q10ans == 2 + "','q11'='" + q11ans == 19 + "','q12'='" + q12ans == 32 + "','q13'='" + q13ans == 1008652 + "','q14'='" + q14ans == 8300 + "','q15'='" + q15ans == 2 + "','q16'='" + q16ans == 784 + "','q17'='" + q17ans == 30 + "','q18'='" + q18ans == 75520 + "','q19'='" + q19ans == 1000 + "','q20'='" + q20ans == 299599 + "','totalscore'='" + totalScore + "' WHERE teamname='" + teamname + "';";
-  console.log(query);
+  var query = "";
+  query = "UPDATE Grades SET q1='" + Number(q1ans == 0) + "', q2='" + Number(q2ans == 503) + "',q3='" + Number(q3ans == 511) + "',q4='" + Number(q4ans == 210) + "',q5='" + Number(q5ans == 944) + "',q6='" + Number(q6ans == 9) + "',q7='" + Number(q7ans == 99) + "',q8='" + Number(q8ans == 2023) + "',q9='" + Number(q9ans == 1999) + "',q10='" + Number(q10ans == 2) + "',q11='" + Number(q11ans == 19) + "',q12='" + Number(q12ans == 32) + "',q13='" + Number(q13ans == 1008652) + "',q14='" + Number(q14ans == 8300) + "',q15='" + Number(q15ans == 2) + "',q16='" + Number(q16ans == 784) + "',q17='" + Number(q17ans == 30) + "',q18='" + Number(q18ans == 75520) + "',q19='" + Number(q19ans == 1000) + "',q20='" + Number(q20ans == 299599) + "',totalscore='" + totalScore + "' WHERE teamname='" + teamname + "';";
   await queryAsync(query);
   res.send({success: "Solutions Submitted Sucessfully!"});
 });
