@@ -115,7 +115,7 @@ app.post("/SubmitAnswers", async (req, res)=>{
   }
   if(q4ans == 210)
   {
-    totalScore += 2;
+    totalScore += 3;
   }
   if(q5ans == 944)
   {
