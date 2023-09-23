@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Logarithm Competition</title>
+        <meta charset="utf-8">
+        <!-- meta for IE -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <!-- First mobile meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet"  href="main.css">
+        <link rel="stylesheet" href="fontawesome/css/all.css">
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+              tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+              }
+            });
+          </script>
+      </head>
+    <body>
+        <form id="instructionsform" style="text-align: center;">
+            <br><br>
+            <h1>Instructions for the exam</h1>
+            <ul class="list-group">
+                <li class="list-group-item">Registered teams may begin the contest any time during the six-hour contest window.</li>
+                <li class="list-group-item">On the contest website, the answers to the problems and the names of the winning teams will be announced. </li>
+                <li class="list-group-item">CHEATING from another teams isn’t allowed.</li>
+                <li class="list-group-item">You can use Graphical calculators, programming, Wolframalpha, etc to solve some problems.</li>
+                <li class="list-group-item">The contest consists of 20 problems, where the points are gradually distributed among the questions according to their difficulty.</li>
+                <li class="list-group-item">You have 135 min to solve the 20 problems with 135 points. TAKE CARE OF YOU TIME TO AVOID DISQUALIFICATION.</li>
+                <li class="list-group-item">ONLLLLYYYYY ONE MEMBER OF THE TEAM SHOULD SUBMIT THE ANSWERS.</li>
+                <li class="list-group-item">Results will be available after the last team submitting their answer.</li>
+              </ul>
+              <br><br><br>
+            <button type="submit" class="btn btn-danger">Proceed to competition</button>
+        </form>
+    <div class="text-center p-4 justify-content-between" style="background-color: rgba(0, 0, 0, 0.05);">
+      <div class="text-container" style="text-align: center;">
+          <p>©Copyright <b>Logarithm</b>, all rights reserverd</p>
+      </div>  
+  </div>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            var form = document.getElementById("instructionsform");
+            form.addEventListener('submit', SendData);
+            startTimer();
+            function SendData(event){
+                event.preventDefault();
+                window.open("exam.html", "_self");
+            }
+        </script>
+    </body>
+</html>
