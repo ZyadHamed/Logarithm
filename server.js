@@ -101,7 +101,7 @@ app.post("/SubmitAnswers", async (req, res)=>{
   q20ans = req.body["q20ans"];
 
   var totalScore = 0;
-  if(q1ans == 0)
+  if(q1ans == 0 && req.body["q1ans"] != "")
   {
     totalScore += 3;
   }
