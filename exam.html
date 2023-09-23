@@ -21,8 +21,6 @@
             });
           </script>
           <script>
-                        console.log(document.cookie);
-                        console.log("Cookies were printed!");
             function getCookie(cname) {
                 let name = cname + "=";
                 let decodedCookie = decodeURIComponent(document.cookie);
@@ -89,6 +87,11 @@
             <div class="mb-3">
                 <label for="txtq2" class="form-label"> <b>(3 points)</b>Suppose there is a large circle with a radius $r_{1}$ and a smaller circle inside it with a radius $r_{2}$, where $\frac{r_{2}}{r_{1}}=\frac{3}{16}$ Find the ratio of the area left after cutting the smaller circle from the larger one to the area of the large circle.</label>
                 <input type="text" class="form-control mx-auto" style="max-width: 100px;" id="txtq2">
+            </div>
+
+            <div class="mb-3">
+                <label for="txtq3" class="form-label"> <b>(3 points)</b>You have 8 regular polygons with $4,8,16, \dots ,512$ sides. The sum of one exterior angle from each polygon can be written as $\frac{a \cdot \pi}{b}$ (in rad). Find $a+b$</label>
+                <input type="text" class="form-control mx-auto" style="max-width: 100px;" id="txtq3">
             </div>
 
             <div class="mb-3">
@@ -206,7 +209,7 @@
             startTimer();
             function SendData(event){
                 event.preventDefault();
-                var data = { teamname: getCookie("teamname"), q1ans: document.getElementById("txtq1").value,
+                var data = {teamname: getCookie("teamname"), q1ans: document.getElementById("txtq1").value,
                 q2ans: document.getElementById("txtq2").value, q3ans: document.getElementById("txtq3").value,
                 q4ans: document.getElementById("txtq4").value, q5ans: document.getElementById("txtq5").value,
                 q6ans: document.getElementById("txtq6").value, q7ans: document.getElementById("txtq7").value,
@@ -218,7 +221,7 @@
                 q18ans: document.getElementById("txtq18").value, q19ans: document.getElementById("txtq19").value,
                 q20ans: document.getElementById("txtq20").value};
         console.log(data)
-                fetch("http://localhost:5000/SignUp", {
+                fetch("https://busy-teal-toad-boot.cyclic.app/SubmitAnswers", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -265,7 +268,7 @@
                     // If the count down is finished, write some text
                     if (distance < 0) {
                     clearInterval(x);
-                    document.getElementById("timer").innerHTML = "The competition has already started!";
+                        SendData();
                     }
                 }, 1000);
             }
