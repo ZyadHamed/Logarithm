@@ -77,7 +77,7 @@ app.post("/InitCompetition", async (req, res)=>{
 });
 
 app.post("/SubmitAnswers", async (req, res)=>{
-  var q1ans, q2ans, q3ans, q4ans, q5ans, q6ans, q7ans, q8ans, q9ans, q10ans, q11ans, q12ans, q13ans, q14ans, q15ans, q16ans, q17ans, q18ans, q19ans, q20ans = 0;
+  var q1ans, q2ans, q3ans, q4ans, q5ans, q6ans, q7ans, q8ans, q9ans, q10ans, q11ans, q12ans, q13ans, q14ans, q15ans, q16ans, q17ans, q18ans, q19ans, q20ans = -1;
   teamname = req.body["teamname"];
   q1ans = req.body["q1ans"];
   q2ans = req.body["q2ans"];
