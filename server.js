@@ -77,7 +77,7 @@ app.post("/InitCompetition", async (req, res)=>{
 });
 
 app.post("/SubmitAnswers", async (req, res)=>{
-  var q1ans, q2ans, q3ans, q4ans, q5ans, q6ans, q7ans, q8ans, q9ans, q10ans, q11ans, q12ans, q13ans, q14ans, q15ans, q16ans, q17ans, q18ans, q19ans, q20ans = -1;
+  var q1ans, q2ans, q3ans, q4ans, q5ans, q6ans, q7ans, q8ans, q9ans, q10ans, q11ans, q12ans, q13ans, q14ans, q15ans, q16ans, q17ans, q18ans, q19ans, q20ans = 0;
   teamname = req.body["teamname"];
   q1ans = req.body["q1ans"];
   q2ans = req.body["q2ans"];
@@ -101,7 +101,7 @@ app.post("/SubmitAnswers", async (req, res)=>{
   q20ans = req.body["q20ans"];
 
   var totalScore = 0;
-  if(q1ans == 0 && req.body["q1ans"] != "")
+  if(q1ans == 0)
   {
     totalScore += 3;
   }
@@ -115,7 +115,7 @@ app.post("/SubmitAnswers", async (req, res)=>{
   }
   if(q4ans == 210)
   {
-    totalScore += 3;
+    totalScore += 2;
   }
   if(q5ans == 944)
   {
@@ -182,15 +182,42 @@ app.post("/SubmitAnswers", async (req, res)=>{
     totalScore += 15;
   }
   var query = "";
-  query = "UPDATE Grades SET q1='" + Number(q1ans == 0 && req.body["q1ans"] != "") + "', q2='" + Number(q2ans == 503) + "',q3='" + Number(q3ans == 511) + "',q4='" + Number(q4ans == 210) + "',q5='" + Number(q5ans == 944) + "',q6='" + Number(q6ans == 9) + "',q7='" + Number(q7ans == 99) + "',q8='" + Number(q8ans == 2023) + "',q9='" + Number(q9ans == 1999) + "',q10='" + Number(q10ans == 2) + "',q11='" + Number(q11ans == 19) + "',q12='" + Number(q12ans == 32) + "',q13='" + Number(q13ans == 1008652) + "',q14='" + Number(q14ans == 8300) + "',q15='" + Number(q15ans == 2) + "',q16='" + Number(q16ans == 784) + "',q17='" + Number(q17ans == 30) + "',q18='" + Number(q18ans == 75520) + "',q19='" + Number(q19ans == 1000) + "',q20='" + Number(q20ans == 299599) + "',totalscore='" + totalScore + "' WHERE teamname='" + teamname + "';";
+  query = "UPDATE Grades SET q1='" + Number(q1ans == 0) + "', q2='" + Number(q2ans == 503) + "',q3='" + Number(q3ans == 511) + "',q4='" + Number(q4ans == 210) + "',q5='" + Number(q5ans == 944) + "',q6='" + Number(q6ans == 9) + "',q7='" + Number(q7ans == 99) + "',q8='" + Number(q8ans == 2023) + "',q9='" + Number(q9ans == 1999) + "',q10='" + Number(q10ans == 2) + "',q11='" + Number(q11ans == 19) + "',q12='" + Number(q12ans == 32) + "',q13='" + Number(q13ans == 1008652) + "',q14='" + Number(q14ans == 8300) + "',q15='" + Number(q15ans == 2) + "',q16='" + Number(q16ans == 784) + "',q17='" + Number(q17ans == 30) + "',q18='" + Number(q18ans == 75520) + "',q19='" + Number(q19ans == 1000) + "',q20='" + Number(q20ans == 299599) + "',totalscore='" + totalScore + "' WHERE teamname='" + teamname + "';";
   await queryAsync(query);
   res.send({success: "Solutions Submitted Sucessfully!"});
 });
 
-app.get("/", (req, res)=>{
+app.get("/GetCSV", async (req, res)=>{
+  /*
   res.sendFile(__dirname + "/signup.html");
+  */
+ var query1 = "SELECT * FROM Grades";
+ result = await queryAsync(query1);
+ var largeStr = "";
+ for(const row of result)
+ {
+    var query2 = "SELECT * FROM Participants WHERE teamname='" + row.teamname + "';";
+    result2 = await queryAsync(query2);
+    if(result2[0] == undefined)
+    {
+      console.log("Skipped Team: " + row.teamname);
+    }
+    else
+    {
+      largeStr += result2[0].teamname + "," + result2[0].leaderfirstname + "," + result2[0].leaderlastname + "," + result2[0].membertwofirstname + "," + result2[0].membertwolastname;
+    }
+ }
 });
 
+app.post("/GetResults", async (req, res)=>{
+  teamname = req.body["teamname"];
+  var query = "SELECT * FROM Grades WHERE teamname='" + teamname + "';";
+  result = await queryAsync(query);
+  console.log(query);
+  console.log(result);
+  data = {q1: result[0].q1, q2: result[0].q2, q3: result[0].q3, q4: result[0].q4, q5: result[0].q5, q6: result[0].q6, q7: result[0].q7, q8: result[0].q8, q9: result[0].q9, q10: result[0].q10, q11: result[0].q11, q12: result[0].q12, q13: result[0].q13, q14: result[0].q14, q15: result[0].q15, q16: result[0].q16, q17: result[0].q17, q18: result[0].q18, q19: result[0].q19, q20: result[0].q20, totalscore: result[0].totalscore};
+  res.send(data);
+})
 
 
 app.listen(PORT, ()=>{

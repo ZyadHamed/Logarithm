@@ -1,0 +1,263 @@
+<html>
+    <head>
+        <title>Logarithm Competition</title>
+        <meta charset="utf-8">
+        <!-- meta for IE -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <!-- First mobile meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet"  href="main.css">
+        <link rel="stylesheet" href="fontawesome/css/all.css">
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+              tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+              }
+            });
+          </script>
+          <script>
+            let TeamName = "";
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+            if(getCookie("teamname") == "")
+            {
+                
+                alert("You must login first before proceeding to the test!");
+                window.open("login.html", "_self");
+            }
+            else
+            {
+                fetch("https://busy-teal-toad-boot.cyclic.app/InitCompetition", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({teamname: getCookie("teamname")})
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                    if(data["err"] != undefined){
+                        TeamName = getCookie("teamname");
+                    }
+                    else{
+                        alert("This teamname hasn't entered the competition, please login again with the team's correct credientials if you are sure you entered");
+                        window.open("login.html", "_self");
+                    }
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+            }
+
+
+          </script>
+      </head>
+    <body>
+        <form id="resultform" style="text-align: center;">
+            <br><br>
+            <h2 id="lbTeamName"><h2>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Question number: </th>
+                    <th scope="col">Your Answer Status</th>
+                    <th scope="col">Correct Answer</th>
+                    <th scope="col">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td id="q1Ans"></td>
+                    <td>0</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td id="q2Ans"></td>
+                    <td>503</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td id="q3Ans"></td>
+                    <td>511</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td id="q4Ans"></td>
+                    <td>210</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td id="q5Ans"></td>
+                    <td>944</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td id="q6Ans"></td>
+                    <td>9</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td id="q7Ans"></td>
+                    <td>99</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8</th>
+                    <td id="q8Ans"></td>
+                    <td>2023</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">9</th>
+                    <td id="q9Ans"></td>
+                    <td>1999</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">10</th>
+                    <td id="q10Ans"></td>
+                    <td>2</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">11</th>
+                    <td id="q11Ans"></td>
+                    <td>19</td>
+                    <td>7</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">12</th>
+                    <td id="q12Ans"></td>
+                    <td>32</td>
+                    <td>7</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">13</th>
+                    <td id="q13Ans"></td>
+                    <td>1008652</td>
+                    <td>7</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">14</th>
+                    <td id="q14Ans"></td>
+                    <td>8300</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">15</th>
+                    <td id="q15Ans"></td>
+                    <td>2</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">16</th>
+                    <td id="q16Ans"></td>
+                    <td>784</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">17</th>
+                    <td id="q17Ans"></td>
+                    <td>30</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">18</th>
+                    <td id="q18Ans"></td>
+                    <td>75520</td>
+                    <td>11</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">19</th>
+                    <td id="q19Ans"></td>
+                    <td>1000</td>
+                    <td>14</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">20</th>
+                    <td id="q20Ans"></td>
+                    <td>299599</td>
+                    <td>15</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h2 id="lbPointCount"></h2>
+        </form>
+
+    <div class="text-center p-4 justify-content-between" style="background-color: rgba(0, 0, 0, 0.05);">
+      <div class="text-container" style="text-align: center;">
+          <p>©Copyright <b>Logarithm</b>, all rights reserverd</p>
+      </div>  
+  </div>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            var form = document.getElementById("resultform");
+            function SendData(){
+              TeamName = getCookie("teamname");
+              document.getElementById("lbTeamName").innerText = "Teamname: " + TeamName;
+              console.log(TeamName);
+                fetch("https://busy-teal-toad-boot.cyclic.app/GetResults", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({teamname: TeamName})
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                  for (let i = 1; i <= 20; i++) {
+                    const questionKey = "q" + i.toString(); // Convert i to a string explicitly
+                    if (data[questionKey] === undefined || data[questionKey] === 0) {
+                      document.getElementById(questionKey + "Ans").innerHTML = "Wrong Answer";
+                    } else {
+                      document.getElementById(questionKey + "Ans").innerHTML = "Correct Answer";
+                    }
+                  }
+                  document.getElementById("lbPointCount").innerHTML = "Your final point count: " + data["totalscore"];
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+            }
+
+            SendData();
+        </script>
+    </body>
+</html>

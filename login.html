@@ -24,12 +24,12 @@
             <h3>Please note: Once you login, you will immedietly be redirected to the test page</h3>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required onkeypress="return noenter()">
                 <div id="emailHelp" class="form-text">The email that you used to register for the competition</div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" required>
+                <input type="password" class="form-control" id="password" required onkeypress="return noenter()">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -40,6 +40,8 @@
   </div>
         <script src="js/bootstrap.min.js"></script>
         <script>
+        function noenter() {
+        return !(window.event && window.event.keyCode == 13); }
             var form = document.getElementById("loginform");
             form.addEventListener('submit', SendData)
             function SendData(event){
@@ -68,7 +70,7 @@
                         console.log(data["teamname"]);
                         document.cookie = "teamname=" + data["teamname"];
                         alert("Login was successful!");
-                        window.open("instructions.html", "_self");
+                        window.open("index.html", "_self");
                     }
                 })
                 .catch(error => {
