@@ -45,7 +45,7 @@
             }
             else
             {
-                fetch("http://localhost:5000/InitCompetition", {
+                fetch("https://busy-teal-toad-boot.cyclic.app/InitCompetition", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -227,7 +227,7 @@
               TeamName = getCookie("teamname");
               document.getElementById("lbTeamName").innerText = "Teamname: " + TeamName;
               console.log(TeamName);
-                fetch("http://localhost:5000/GetResults", {
+                fetch("https://busy-teal-toad-boot.cyclic.app/GetResults", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
